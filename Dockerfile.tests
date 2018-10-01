@@ -1,1 +1,7 @@
 FROM xsteadfastx/tox-python
+
+RUN set -ex \
+ && apt-get update \
+ && apt-get install -y \
+        libpulse0 \
+ && rm -rf /var/lib/apt/lists/*
