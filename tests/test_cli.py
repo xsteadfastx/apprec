@@ -1,4 +1,5 @@
 # pylint: disable=missing-docstring,too-many-arguments,redefined-outer-name
+# pylint: disable=unused-argument
 from unittest.mock import call, patch
 
 import pytest
@@ -18,25 +19,6 @@ def test_banner(mock_echo):
     assert len(mock_echo.call_args_list) == 7
 
 
-#
-#
-# @pytest.mark.parametrize("inputs,exit_code,echo", [
-#    ([], 1, ["No inputs right now."]),
-# ])
-# @patch("apprec.cli.banner")
-# @patch("apprec.cli.click")
-# @patch("apprec.cli.core")
-# def test_main(mock_banner, mock_core, mock_click, inputs, exit_code, echo, runner):
-#    mock_core.get_inputs.return_value = inputs
-#
-#    result = runner.invoke(cli.main, ["--audio-format", "wav", "/tmp/foobar"])
-#
-#    # mock_banner.assert_called_with()
-#
-#    assert mock_click.echo.call_args_list == echo
-#    assert result.exit_code == exit_code
-
-
 @pytest.mark.parametrize(
     "inputs,exit_code,echos",
     [
@@ -48,7 +30,9 @@ def test_banner(mock_echo):
 @patch("apprec.cli.click.prompt")
 @patch("apprec.cli.click.echo")
 @patch("apprec.cli.core.get_inputs")
+@patch("apprec.cli.core.main")
 def test_main(
+    mock_main,
     mock_get_inputs,
     mock_echo,
     mock_prompt,
